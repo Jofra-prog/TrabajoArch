@@ -21,14 +21,22 @@ def filtrar_por_metodo_pago(datos, pago):
     return compras_pago
 
 # Leer los datos del archivo CSV
-name =input("Ingrese la ruta que desea buscar \n")
-datos = leer_csv(name)
+while True:
+    try:
+        name =input("Ingrese la ruta que desea buscar \n")
+        datos = leer_csv(name)
+        break
+    except FileNotFoundError:
+        print("El archivo no fue encontrado o esta mal escrito, reescribalo correctamente")
+        
+# Filtrar las compras realizadas en un país dado
+while True:
+    pago = input("Ingrese el metodo de pago que desea buscar las compras \n")
+    metodopago = filtrar_por_metodo_pago(datos, pago)
+    if metodopago:
+        total_compras = len(metodopago)
+        print(f"Total de compras realizadas en {pago}: {total_compras}")
+        break
+    else:
+        print(f"El metodo de pago '{pago}' no está en la lista. Inténtelo de nuevo.")
 
-# Filtrar las compras realizadas por el metodo de pago dado
-pago = input("Ingrese el metodo de pago que desea contar \n")
-metodopago = filtrar_por_metodo_pago(datos, pago)
-
-# Obtener el total de compras realizadas con ese metodo de pago
-total_compras = len(metodopago)
-
-print(f"Total de compras realizadas en {pago}: {total_compras}")
